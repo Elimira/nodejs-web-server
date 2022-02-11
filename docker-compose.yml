@@ -1,0 +1,40 @@
+version: '3.3'
+
+volumes:
+    mongodb_data:
+
+services:  
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq2
+    hostname: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+        
+  web-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+      - mongo
+    environment:
+      - NODE_ENV=development
+      - MONGO_HOST=webservice_mongo_1:29017
+    ports:
+      - 3333:3333
+
+  mongo:
+    image: mongo:latest
+    volumes: 
+      - mongodb_data:/data/db
+    command: mongod --port 29017
+    ports:
+      - 29017:29017
+            
