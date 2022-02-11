@@ -11,7 +11,7 @@ async function bootstrap() {
   const queueName = config.microserviceOptions.queueName;
   const host = config.microserviceOptions.host;
 
-  await app.connectMicroservice<MicroserviceOptions>({
+  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
     options: {
       urls: [host],

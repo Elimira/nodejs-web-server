@@ -1,7 +1,6 @@
 import config from '../config';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { AppController } from '../app/app.controller';
 import { MongoModule } from '../mongo/mongo.module';
 import { PublisherController } from '../publisher/publish.controller';
 import { ConsumerController } from '../consumer/consumer.controller';
@@ -33,7 +32,7 @@ const host = config.microserviceOptions.host;
       },
     ]),
   ],
-  controllers: [AppController, PublisherController, ConsumerController],
+  controllers: [PublisherController, ConsumerController],
   providers: [StoreService],
 })
 export class AppModule {}

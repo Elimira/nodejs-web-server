@@ -1,4 +1,4 @@
-//import indexList from './mongoIndexes';
+// import indexList from './mongoIndexes';
 import { Db, ObjectID } from 'mongodb';
 import { InjectConnection } from '../mongo/index';
 import { Injectable, Logger } from '@nestjs/common';
@@ -19,11 +19,11 @@ export class StoreService {
   }: CreateDataDto): Promise<boolean> {
     try {
       await this.mongoConnection.collection('data').insertOne({
-        ts: ts,
-        sender: sender,
-        message: message,
-        sent_from_ip: sent_from_ip,
-        priority: priority,
+        ts,
+        sender,
+        message,
+        sent_from_ip,
+        priority,
       });
       return true;
     } catch (error) {

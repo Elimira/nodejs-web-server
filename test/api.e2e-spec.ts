@@ -42,7 +42,7 @@ describe('APIController (e2e)', () => {
   });
 
   it('/ (takeWebData): It should be rejected, because message should have at least one field', async () => {
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/api/payloads')
       .send({
         ts: '20200208',
@@ -55,7 +55,7 @@ describe('APIController (e2e)', () => {
   });
 
   it('/ (takeWebData): It should be rejected, because sent_from_ip is `Ipv6` NOT `Ipv4`', async () => {
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/api/payloads')
       .send({
         ts: '20200208',
@@ -72,7 +72,7 @@ describe('APIController (e2e)', () => {
   });
 
   it('/ (takeWebData): It should be rejected, because of non-whitelisted property', async () => {
-    const response = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/api/payloads')
       .send({
         ts: '20200208',
