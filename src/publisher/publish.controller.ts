@@ -38,7 +38,7 @@ export class PublisherController {
     return await this.storeService.getAllPayloads();
   }
 
-  @Get('/search:id')
+  @Get('/search/:id')
   @ApiParam({
     name: 'id',
     required: true,

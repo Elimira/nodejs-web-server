@@ -2,8 +2,9 @@
 import { Db, ObjectID } from 'mongodb';
 import { InjectConnection } from '../mongo/index';
 import { Injectable, Logger } from '@nestjs/common';
-import { CreateDataDto, Status } from '../publisher/types';
+import { HttpStatus } from '@nestjs/common';
 import { IGetApiResponse } from '../publisher/interfaces';
+import { CreateDataDto } from 'src/publisher/types';
 
 @Injectable()
 export class StoreService {
@@ -39,7 +40,7 @@ export class StoreService {
         .find({})
         .sort({ priority: 1 })
         .toArray();
-      return { status: Status.Successful, res: payloads };
+      return { status: HttpStatus.ACCEPTED, res: payloads };
     } catch (error) {
       return this.handleError(error);
     }
@@ -62,9 +63,9 @@ export class StoreService {
     this.logger.error(error);
     switch (error) {
       case 'Error: Invalid input data':
-        return { status: Status.BadRequest, res: error };
+        return { status: HttpStatus.BAD_REQUEST, res: error };
       default:
-        return { status: Status.ServerUnavailable, res: error };
+        return { status: HttpStatus.SERVICE_UNAVAILABLE, res: error };
     }
   }
 }
