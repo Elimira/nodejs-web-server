@@ -42,9 +42,9 @@ To run the server:
 
  docker-compose up
 ```
-When everything is ready, your server will be accessible via:
- `http://localhost:3333/api/ `
- `http://localhost:3333/graphql `
+When everything is ready, your server will be accessible via:  
+ `http://localhost:3333/api/ `  
+ `http://localhost:3333/graphql `  
 
 ### `Running locally`
 
