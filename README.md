@@ -12,18 +12,17 @@ This service provides an API that parses a specific JSON schema and saves it to 
  ## Folder Structure
 
 ```
-WebService
+nodejs-web-server
 ├── Dockerfile
 ├── README.md
-├── dist
 ├── docker-compose.yml
-├── node_modules
 ├── package.json
 ├── src
-    ├── __mocks__
     ├── app
+    ├── common
     ├── config.ts
     ├── consumer
+    ├── gql
     ├── main.ts
     ├── mongo
     ├── publisher
@@ -43,7 +42,10 @@ To run the server:
 
  docker-compose up
 ```
-When everything is ready, your server will be accessible via `http://localhost:3333/api/ `
+When everything is ready, your server will be accessible via:
+ `http://localhost:3333/api/ `
+ `http://localhost:3333/graphql `
+
 ### `Running locally`
 
 - Install RabbitMQ
@@ -60,7 +62,7 @@ rabbitmq-server
 
 yarn
 
-yarn build
+yarn run build
 
 yarn run start
 

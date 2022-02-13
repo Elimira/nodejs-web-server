@@ -47,8 +47,6 @@ export class StoreService {
   }
 
   async getPayloadById(id: ObjectID): Promise<IGetApiResponse> {
-    this.logger.log('in me');
-    this.logger.log(id);
     try {
       const payload = await this.mongoConnection
         .collection('data')
