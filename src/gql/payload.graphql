@@ -1,0 +1,34 @@
+type Query {
+  payload(id: ID!): Payload
+  payloads: [Payload]
+}
+
+type Mutation {
+  createPayload(createPayloadInput: CreatePayloadInput): Boolean
+}
+
+type Payload {
+  ts: String
+  sender: String
+  message: Message
+  sent_from_ip: String 
+  priority: Int
+}
+
+type Message {
+  foo: String
+  baz: String
+}
+
+input CreatePayloadInput {
+  ts: String
+  sender: String
+  message: MessageInput
+  sent_from_ip: String 
+  priority: Int
+}
+
+input MessageInput {
+  foo: String
+  baz: String
+}

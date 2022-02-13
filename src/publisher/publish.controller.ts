@@ -30,11 +30,12 @@ export class PublisherController {
   @UsePipes(CustomValidationPipe)
   async takeWebData(@Body() createDataDto: CreateDataDto): Promise<boolean> {
     this.client.emit<number>('PUBLISH_PAYLOAD', createDataDto);
+    // TODO: return the entity instead of boolean
     return true;
   }
 
   @Get('/search')
-  async getAllWebData(): Promise<IGetApiResponse> {
+  async findAllWebData() {
     return await this.storeService.getAllPayloads();
   }
 
@@ -45,7 +46,7 @@ export class PublisherController {
     description: '',
     schema: { type: 'string' },
   })
-  async getWebData(@Param('id') id: string): Promise<IGetApiResponse> {
+  async findWebData(@Param('id') id: string): Promise<IGetApiResponse> {
     return await this.storeService.getPayloadById(new ObjectID(id));
   }
 }

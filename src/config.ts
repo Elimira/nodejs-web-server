@@ -1,7 +1,11 @@
 import { IMongoModuleOptions } from './mongo/index';
 import { DocumentBuilder } from '@nestjs/swagger';
 import IMicroserviceOptions from './app/type/IMicroserviceOptions';
+import { GqlModuleOptions } from '@nestjs/graphql';
 import 'dotenv/config';
+import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date';
+import { ApolloDriver } from '@nestjs/apollo';
+import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
 
 const appKey = process.env.APP_KEY || 'some-random-string';
 const serverAddress = process.env.SERVER_ADDRESS || 'http://localhost:3333';
@@ -28,6 +32,14 @@ const config: IConfig = {
     host: process.env.host || 'amqp://localhost:5672',
     queueName: process.env.queueName || 'persist_web_payload',
   },
+  graphql: {
+    driver: ApolloDriver,
+    typePaths: ['./**/*.graphql'],
+    transformSchema: schema => upperDirectiveTransformer(schema, 'upper'),
+    context: ({ req }) => ({ req }),
+    installSubscriptionHandlers: true,
+    playground: true,
+  },
 };
 
 export default config;
@@ -36,4 +48,5 @@ interface IConfig {
   mongo: IMongoModuleOptions;
   openAPIObject: any;
   microserviceOptions: IMicroserviceOptions;
+  graphql: any;
 }
