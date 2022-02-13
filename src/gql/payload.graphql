@@ -11,7 +11,7 @@ type Payload {
   ts: String
   sender: String
   message: Message
-  sent_from_ip: String 
+  sent_from_ip: String
   priority: Int
 }
 
@@ -24,7 +24,7 @@ input CreatePayloadInput {
   ts: String
   sender: String
   message: MessageInput
-  sent_from_ip: String 
+  sent_from_ip: String
   priority: Int
 }
 

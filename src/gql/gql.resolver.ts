@@ -1,4 +1,4 @@
-import { Inject, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Inject, Logger, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { ClientProxy } from '@nestjs/microservices';
 import { StoreService } from 'src/store/store.service';
@@ -10,10 +10,12 @@ import { PayloadsGuard } from './payloads.guard';
 @Resolver()
 @UseGuards(PayloadsGuard)
 export class PayloadResolver {
-
   constructor(
     private readonly storeService: StoreService,
-    @Inject('PUBLISH_PAYLOAD') private client: ClientProxy) {}
+    @Inject('PUBLISH_PAYLOAD') private client: ClientProxy,
+  ) {}
+
+  logger = new Logger();
 
   @Query('payloads')
   async getPayloads() {
@@ -29,7 +31,10 @@ export class PayloadResolver {
   }
 
   @Mutation('createPayload')
-  async create(@Args('createPayloadInput') args: CreateDataDto): Promise<boolean> {
+  async createPayload(
+    @Args('createPayloadInput') args: CreateDataDto,
+  ): Promise<boolean> {
+    this.logger.log(`ars are4 ---> ${JSON.stringify(args)}`)
     this.client.emit<number>('PUBLISH_PAYLOAD', args);
     return true;
     // TODO: use @subscription

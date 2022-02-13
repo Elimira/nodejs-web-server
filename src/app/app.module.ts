@@ -9,7 +9,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConsumerModule } from 'src/consumer/consumer.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig } from '@nestjs/apollo';
-import { GqlModule } from 'src/gql/gql.module';
+import { PayloadResolver } from 'src/gql/gql.resolver';
 
 const queueName = config.microserviceOptions.queueName;
 const host = config.microserviceOptions.host;
@@ -19,7 +19,6 @@ const host = config.microserviceOptions.host;
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    GqlModule,
     GraphQLModule.forRoot<ApolloDriverConfig>(config.graphql),
     ConsumerModule,
     MongoModule.forRoot(config.mongo),
@@ -38,6 +37,6 @@ const host = config.microserviceOptions.host;
     ]),
   ],
   controllers: [PublisherController, ConsumerController],
-  providers: [StoreService],
+  providers: [StoreService, PayloadResolver],
 })
 export class AppModule {}
