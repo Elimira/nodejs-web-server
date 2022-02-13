@@ -3,7 +3,6 @@ import { DocumentBuilder } from '@nestjs/swagger';
 import IMicroserviceOptions from './app/type/IMicroserviceOptions';
 import { GqlModuleOptions } from '@nestjs/graphql';
 import 'dotenv/config';
-import { GraphQLDateTime, GraphQLDate } from 'graphql-iso-date';
 import { ApolloDriver } from '@nestjs/apollo';
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
 
@@ -37,8 +36,6 @@ const config: IConfig = {
     typePaths: ['./**/*.graphql'],
     transformSchema: schema => upperDirectiveTransformer(schema, 'upper'),
     context: ({ req }) => ({ req }),
-    installSubscriptionHandlers: true,
-    playground: true,
   },
 };
 
@@ -48,5 +45,5 @@ interface IConfig {
   mongo: IMongoModuleOptions;
   openAPIObject: any;
   microserviceOptions: IMicroserviceOptions;
-  graphql: any;
+  graphql: GqlModuleOptions ;
 }

@@ -19,7 +19,7 @@ export function upperDirectiveTransformer(
         // Replace the original resolver with a function that *first* calls
         // the original resolver, then converts its result to upper case
         fieldConfig.resolve = async (source, args, context, info) => {
-          const result = await resolve(source, args, context, info);
+          const result = resolve(source, args, context, info);
           if (typeof result === 'string') {
             return result.toUpperCase();
           }
