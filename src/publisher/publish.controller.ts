@@ -30,7 +30,6 @@ export class PublisherController {
   @UsePipes(CustomValidationPipe)
   async takeWebData(@Body() createDataDto: CreateDataDto): Promise<boolean> {
     this.client.emit<number>('PUBLISH_PAYLOAD', createDataDto);
-    // TODO: return the entity instead of boolean
     return true;
   }
 

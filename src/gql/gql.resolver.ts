@@ -1,10 +1,10 @@
-import { Inject, Logger, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Inject, Logger, ParseIntPipe, UseGuards, UsePipes } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { ClientProxy } from '@nestjs/microservices';
 import { StoreService } from 'src/store/store.service';
 import { ObjectID } from 'mongodb';
 import { IGetApiResponse } from 'src/publisher/interfaces';
-import { CreateDataDto } from 'src/publisher/types';
+import { CreateDataDto, CustomValidationPipe } from 'src/publisher/types';
 import { PayloadsGuard } from './payloads.guard';
 
 @Resolver()
@@ -31,6 +31,7 @@ export class PayloadResolver {
   }
 
   @Mutation('createPayload')
+  @UsePipes(CustomValidationPipe)
   async createPayload(
     @Args('createPayloadInput') args: CreateDataDto,
   ): Promise<boolean> {
